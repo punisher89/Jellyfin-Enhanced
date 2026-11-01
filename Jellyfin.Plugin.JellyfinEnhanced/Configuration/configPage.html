@@ -11914,10 +11914,17 @@
         'Loading...':'Загрузка…','Loading…':'Загрузка…','None':'Нет','Enabled':'Включено','Disabled':'Отключено',
         'Imported':'Импортировано','Success':'Успешно','Error':'Ошибка','Warning':'Предупреждение',
 
+        'Elsewhere & Reviews':'Где смотреть и отзывы','Plugin detection issue':'Проблема обнаружения плагина',
+        'Service Status':'Состояние служб','Optional Dependencies':'Дополнительные зависимости',
         'Re-test all service connections':'Повторно проверить все подключения служб',
+        'Re-runs the TMDB / Seerr / Sonarr / Radarr tests':'Повторно запускает проверку TMDB, Seerr, Sonarr и Radarr',
+        'Clear all client tag caches':'Очистить кэш меток на всех клиентах',
+        'Forces every client to rebuild its localStorage tag cache':'Заставляет каждый клиент заново создать локальный кэш меток',
+        'UI Preferences':'Настройки интерфейса','Show watch progress for items in item details page.':'Показывать прогресс просмотра на страницах с информацией о фильме или сериале.',
         'Choose default display for watch progress (percentage, time watched, or time remaining).':'Выберите, как показывать прогресс: в процентах, просмотренное или оставшееся время.',
         'Select how time-based progress is shown.':'Выберите формат отображения времени.',
         'Display the file size of each item on item detail pages or collections pages.':'Показывать размер файла на страницах материалов и коллекций.',
+        'List the audio language flags available for each title on its detail page.':'Показывать флаги доступных языков аудио на странице каждого материала.',
         'Resolution, source, HDR, format and sound badges on poster cards. A slightly modified version of the original script by':'Метки разрешения, источника, HDR, формата видео и звука на постерах. Немного изменённая версия оригинального скрипта автора',
         'Pick which categories of quality tags should appear, and the order they stack within the chosen corner. Use the':'Выберите категории меток качества и порядок их расположения в выбранном углу. Используйте кнопки',
         'buttons to reorder.':'для изменения порядка.',
@@ -11977,35 +11984,57 @@
         'Requires a free API key from mdblist.com':'Требуется бесплатный API-ключ с сайта mdblist.com.',
         'Displays the MDBList ratings row on item-details pages.':'Показывает строку рейтингов MDBList на страницах материалов.',
         'Looks up MDBList data for any movie/series whose cached ratings are missing or stale, and saves it. Doesn\'t touch Jellyfin\'s own rating fields':'Ищет данные MDBList для фильмов и сериалов, у которых отсутствуют рейтинги в кэше или они устарели, и сохраняет результат. Собственные поля рейтингов Jellyfin не изменяются.',
+        'Show recently watched':'Показывать недавно просмотренное','Show recently favorited':'Показывать недавно добавленное в избранное',
+        'Show recently reviewed':'Показывать недавно оценённое','Show Active Streams section':'Показывать раздел активных потоков',
         'Enable Seerr integration':'Включить интеграцию с Seerr','Enable 4K Requests':'Разрешить запросы в 4K',
         'Enable 4K TV Requests':'Разрешить запросы сериалов в 4K','Show advanced request options':'Показывать расширенные параметры запроса',
+        'Only allow requesting one season at a time':'Разрешить запрашивать только один сезон за раз',
+        'Show request quota info':'Показывать информацию о лимите запросов',
+        'Show Collections in Seerr Results':'Показывать коллекции в результатах Seerr',
+        'Show Seerr Results in Search':'Показывать результаты Seerr в поиске',
+        'Exclude search items already in library':'Не показывать в поиске материалы, уже имеющиеся в библиотеке',
         'Open results in "More Info" modal':'Открывать результаты в окне «Подробнее»',
+        'Show Streaming Providers on Posters':'Показывать стриминговые сервисы на постерах',
+        'Show Seerr link on item detail pages':'Показывать ссылку Seerr на страницах материалов',
         'Show similar items':'Показывать похожие материалы','Show recommended items':'Показывать рекомендованные материалы',
         'Show "Request More" button on Series':'Показывать кнопку «Запросить ещё» на страницах сериалов',
+        'Exclude items already in library':'Исключать материалы, уже имеющиеся в библиотеке',
+        'Exclude blocklisted items':'Исключать материалы из чёрного списка',
         'Show "More from Network"':'Показывать «Ещё от этой сети»','Show "More Genre"':'Показывать «Ещё в этом жанре»',
         'Show "More Tag"':'Показывать «Ещё по этой метке»','Show "More from Actor"':'Показывать «Ещё с этим актёром»',
+        'Show missing collection movies':'Показывать отсутствующие фильмы из коллекции',
+        'Auto import Jellyfin users to Seerr':'Автоматически импортировать пользователей Jellyfin в Seerr',
+        'Disable server-side response cache':'Отключить серверный кэш ответов',
         'Enable Tags Sync':'Включить синхронизацию меток','Clear old tags before sync':'Удалять старые метки перед синхронизацией',
+        'Show synced tags as links':'Показывать синхронизированные метки как ссылки',
         'Expand reviews by default':'По умолчанию раскрывать отзывы',
         'Enable Review Translation':'Включить перевод отзывов',
+        'LibreTranslate URL (optional)':'URL LibreTranslate (необязательно)',
+        'LibreTranslate API Key (optional)':'API-ключ LibreTranslate (необязательно)',
         'Enable User Written Reviews':'Разрешить пользовательские отзывы',
+        'Hide reviews from disabled users':'Скрывать отзывы отключённых пользователей',
+        'Show average user rating on poster cards':'Показывать среднюю оценку пользователей на постерах',
         'Show "—" on posters for unrated items':'Показывать «—» на постерах без оценки',
         'Enable Maintenance Mode':'Включить режим обслуживания',
+        'Disable remote connections':'Отключить удалённые подключения',
         'Enable daily maintenance window':'Включить ежедневное окно обслуживания',
         'Rebuild Server Tag Cache':'Перестроить серверный кэш меток',
+        'Disable Keyboard Shortcuts':'Отключить сочетания клавиш',
+        'Unsaved changes':'Есть несохранённые изменения','Save Settings':'Сохранить настройки',
+        'Overview':'Обзор','Settings':'Настройки','General Settings':'Общие настройки'
     };
 
-    const normalize = value => (value || '').replace(/\\s+/g, ' ').trim();
+    const normalize = value => (value || '').replace(/\s+/g, ' ').trim();
     const translateText = node => {
         const value = node.nodeValue;
         if (!value || !value.trim()) return;
         const parent = node.parentElement;
         if (parent && (parent.closest('script,style,textarea,code,pre') ||
             parent.closest('.material-symbols,.material-symbols-outlined,.material-icons,.material-icons-outlined,.material-icons-round,.material-icons-sharp'))) return;
-        const trimmed = normalize(value);
-        const translated = translations[trimmed];
+        const translated = translations[normalize(value)];
         if (!translated) return;
-        const leading = value.match(/^\\s*/)?.[0] || '';
-        const trailing = value.match(/\\s*$/)?.[0] || '';
+        const leading = value.match(/^\s*/)?.[0] || '';
+        const trailing = value.match(/\s*$/)?.[0] || '';
         node.nodeValue = leading + translated + trailing;
     };
     const attrNames = ['title','placeholder','aria-label','alt'];
@@ -12024,7 +12053,6 @@
         const elements = [root, ...root.querySelectorAll('*')];
         elements.forEach(el => {
             attrNames.forEach(name => translateAttribute(el, name));
-            // Translate only fixed-action values. Never touch editable text, API keys or user input.
             if (el.matches('button,input[type="button"],input[type="submit"]')) translateAttribute(el, 'value');
         });
     };
