@@ -5,10 +5,10 @@
 </head>
 <body style="background: black;">
 <div class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-checkbox,emby-select" data-role="page" id="JellyfinEnhancedPage">
-<script id="je-admin-ru">
+<script id="je-admin-ru-dictionary">
 (() => {
     'use strict';
-    const translations = {
+    window.jeAdminRuTranslations = {
         'Help':'Помощь',
         'Descriptions':'Описания',
         'On':'Вкл.',
@@ -1007,135 +1007,9 @@
         "Root Folder:": "Корневая папка:",
         "Watchlist": "Список просмотра",
     };
-
-    const normalize = value => (value || '').replace(/\s+/g, ' ').trim();
-    const skipTags = new Set(['SCRIPT', 'STYLE', 'TEXTAREA', 'CODE', 'PRE']);
-    const attrNames = ['title', 'placeholder', 'aria-label', 'alt'];
-
-    const translateText = node => {
-        const value = node.nodeValue;
-        if (!value || !value.trim()) return;
-        const parent = node.parentElement;
-        if (!parent || parent.closest('script,style,textarea,code,pre,.material-symbols,.material-symbols-outlined,.material-icons,.material-icons-outlined,.material-icons-round,.material-icons-sharp')) return;
-        const translated = translations[normalize(value)];
-        if (!translated) return;
-        const leading = value.match(/^\s*/)?.[0] || '';
-        const trailing = value.match(/\s*$/)?.[0] || '';
-        node.nodeValue = leading + translated + trailing;
-    };
-
-    const translateAttribute = (el, name) => {
-        const value = el.getAttribute(name);
-        if (value) {
-            const translated = translations[normalize(value)];
-            if (translated && translated !== value) el.setAttribute(name, translated);
-        }
-    };
-
-    // Walk each inserted subtree once. Avoid building large intermediate arrays
-    // and avoid recursively rescanning descendants for every nested mutation.
-    const translateTree = root => {
-        if (!root) return;
-        const process = node => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                translateText(node);
-                return;
-            }
-            if (node.nodeType !== Node.ELEMENT_NODE || skipTags.has(node.tagName)) return;
-            attrNames.forEach(name => translateAttribute(node, name));
-            if (node.matches('button,input[type="button"],input[type="submit"]')) {
-                translateAttribute(node, 'value');
-            }
-        };
-
-        process(root);
-        if (root.nodeType !== Node.ELEMENT_NODE || skipTags.has(root.tagName)) return;
-        const walker = document.createTreeWalker(
-            root,
-            NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
-            {
-                acceptNode(node) {
-                    if (node.nodeType === Node.ELEMENT_NODE && skipTags.has(node.tagName)) {
-                        return NodeFilter.FILTER_REJECT;
-                    }
-                    if (node.nodeType === Node.TEXT_NODE) {
-                        const parent = node.parentElement;
-                        if (parent && parent.closest('.material-symbols,.material-symbols-outlined,.material-icons,.material-icons-outlined,.material-icons-round,.material-icons-sharp')) {
-                            return NodeFilter.FILTER_REJECT;
-                        }
-                    }
-                    return NodeFilter.FILTER_ACCEPT;
-                }
-            }
-        );
-        while (walker.nextNode()) process(walker.currentNode);
-    };
-
-    const root = document.getElementById('JellyfinEnhancedPage') || document.body;
-    const pending = new Set();
-    let frameScheduled = false;
-
-    const flushPending = () => {
-        frameScheduled = false;
-        const batch = Array.from(pending);
-        pending.clear();
-        const batchSet = new Set(batch);
-
-        for (const node of batch) {
-            // If an ancestor is already queued, its traversal covers this node.
-            let ancestor = node.parentNode;
-            let covered = false;
-            while (ancestor && ancestor !== root) {
-                if (batchSet.has(ancestor)) {
-                    covered = true;
-                    break;
-                }
-                ancestor = ancestor.parentNode;
-            }
-            if (!covered) translateTree(node);
-        }
-    };
-
-    const scheduleFlush = () => {
-        if (frameScheduled) return;
-        frameScheduled = true;
-        requestAnimationFrame(flushPending);
-    };
-
-    // Defer the initial pass so Jellyfin can finish its own page initialization.
-    requestAnimationFrame(() => translateTree(root));
-
-    const observer = new MutationObserver(records => {
-        for (const record of records) {
-            if (record.type === 'childList') {
-                record.addedNodes.forEach(node => {
-                    if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.TEXT_NODE) {
-                        pending.add(node);
-                    }
-                });
-            } else if (record.type === 'characterData') {
-                translateText(record.target);
-            } else if (record.type === 'attributes') {
-                const el = record.target;
-                const name = record.attributeName;
-                if (attrNames.includes(name) || (name === 'value' && el.matches('button,input[type="button"],input[type="submit"]'))) {
-                    translateAttribute(el, name);
-                }
-            }
-        }
-        if (pending.size) scheduleFlush();
-    });
-
-    observer.observe(root, {
-        subtree: true,
-        childList: true,
-        characterData: true,
-        attributes: true,
-        attributeFilter: [...attrNames, 'value']
-    });
-    window.jeAdminRussianReady = true;
 })();
 </script>
+
 
     <script>
         var link = document.createElement('link');
@@ -12748,6 +12622,142 @@
 </script>
 
 
+
+
+
+<script id="je-admin-ru">
+(() => {
+    'use strict';
+    const translations = window.jeAdminRuTranslations || {};
+    const normalize = value => (value || '').replace(/\s+/g, ' ').trim();
+    const skipTags = new Set(['SCRIPT', 'STYLE', 'TEXTAREA', 'CODE', 'PRE']);
+    const attrNames = ['title', 'placeholder', 'aria-label', 'alt'];
+
+    const translateText = node => {
+        const value = node.nodeValue;
+        if (!value || !value.trim()) return;
+        const parent = node.parentElement;
+        if (!parent || parent.closest('script,style,textarea,code,pre,.material-symbols,.material-symbols-outlined,.material-icons,.material-icons-outlined,.material-icons-round,.material-icons-sharp')) return;
+        const translated = translations[normalize(value)];
+        if (!translated || translated === value) return;
+        const leading = value.match(/^\s*/)?.[0] || '';
+        const trailing = value.match(/\s*$/)?.[0] || '';
+        node.nodeValue = leading + translated + trailing;
+    };
+
+    const translateAttribute = (el, name) => {
+        const value = el.getAttribute(name);
+        if (!value) return;
+        const translated = translations[normalize(value)];
+        if (translated && translated !== value) el.setAttribute(name, translated);
+    };
+
+    const processNode = node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+            translateText(node);
+            return;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE || skipTags.has(node.tagName)) return;
+        attrNames.forEach(name => translateAttribute(node, name));
+        if (node.matches('button,input[type="button"],input[type="submit"]')) {
+            translateAttribute(node, 'value');
+        }
+    };
+
+    const translateTree = root => {
+        processNode(root);
+        if (root.nodeType !== Node.ELEMENT_NODE || skipTags.has(root.tagName)) return;
+        const walker = document.createTreeWalker(
+            root,
+            NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
+            {
+                acceptNode(node) {
+                    if (node.nodeType === Node.ELEMENT_NODE && skipTags.has(node.tagName)) {
+                        return NodeFilter.FILTER_REJECT;
+                    }
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        const parent = node.parentElement;
+                        if (parent && parent.closest('.material-symbols,.material-symbols-outlined,.material-icons,.material-icons-outlined,.material-icons-round,.material-icons-sharp')) {
+                            return NodeFilter.FILTER_REJECT;
+                        }
+                    }
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+            }
+        );
+        while (walker.nextNode()) processNode(walker.currentNode);
+    };
+
+    const root = document.getElementById('JellyfinEnhancedPage');
+    if (!root) {
+        console.warn('[Jellyfin Enhanced] Russian admin translation: page root not found.');
+        return;
+    }
+
+    const pending = new Set();
+    let frameScheduled = false;
+
+    const flushPending = () => {
+        frameScheduled = false;
+        const batch = Array.from(pending);
+        pending.clear();
+        const batchSet = new Set(batch);
+        for (const node of batch) {
+            let ancestor = node.parentNode;
+            let covered = false;
+            while (ancestor && ancestor !== root) {
+                if (batchSet.has(ancestor)) {
+                    covered = true;
+                    break;
+                }
+                ancestor = ancestor.parentNode;
+            }
+            if (!covered) translateTree(node);
+        }
+    };
+
+    const scheduleFlush = () => {
+        if (frameScheduled) return;
+        frameScheduled = true;
+        requestAnimationFrame(flushPending);
+    };
+
+    const observer = new MutationObserver(records => {
+        for (const record of records) {
+            if (record.type === 'childList') {
+                record.addedNodes.forEach(node => {
+                    if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.TEXT_NODE) {
+                        pending.add(node);
+                    }
+                });
+            } else if (record.type === 'characterData') {
+                translateText(record.target);
+            } else if (record.type === 'attributes') {
+                const name = record.attributeName;
+                const el = record.target;
+                if (attrNames.includes(name) || (name === 'value' && el.matches('button,input[type="button"],input[type="submit"]'))) {
+                    translateAttribute(el, name);
+                }
+            }
+        }
+        if (pending.size) scheduleFlush();
+    });
+
+    // This script is deliberately placed after the page's own scripts.
+    // Translation starts on the next frame to avoid blocking Jellyfin's setup.
+    requestAnimationFrame(() => {
+        translateTree(root);
+        observer.observe(root, {
+            subtree: true,
+            childList: true,
+            characterData: true,
+            attributes: true,
+            attributeFilter: [...attrNames, 'value']
+        });
+        window.jeAdminRussianReady = true;
+    });
+})();
+</script>
 
 </div>
 
